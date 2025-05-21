@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Special Message</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body onload="showMessage();showPaperBlast();startConfetti(event);">
+    <div class="container">
+        <h1>For my thango ❤️</h1>
+        
+        <div class="message-box">
+            <p id="message"></p>
+        </div>
+
+        <button onclick="openPopup()" class="btn">Click for a Surprise 🎁</button>
+    </div>
+    <div id="paper-blast"></div>
+    <canvas id="confetti"></canvas>
+    <div id="popup" class="popup">
+        <div class="popup-content">
+            <span class="close" onclick="closePopup()">&times;</span>
+            <h2>🎉 Surprise Gift 🎁</h2>
+            <div class="popup-image-container">
+                <img id="popup-image" alt="Surprise Gift">
+            </div>
+            <a id="download-btn" class="btn">Download</a>
+        </div>
+    </div>
+
+    <script>
+
+        function showMessage() {
+            const message = " I don’t care how you are or what you’re going through — all I know is, I need you. I really like you. No matter how you are, the love I have for you will never fade... it will only grow stronger.❤️ I Love you ❤️ I miss You "; //message passes here
+            let i = 0;
+            let textElement = document.getElementById("message");
+            textElement.innerHTML = "";
+
+            function typeWriter() {
+                if (i < message.length) {
+                    textElement.innerHTML += message.charAt(i);
+                    i++;
+                    setTimeout(typeWriter, 100);
+                }
+            }
+            typeWriter();
+        }
+
+        function startConfetti() {
+            console.log("Confetti effect started!"); 
+            // Implement confetti effect here
+        }
+
+        function showPaperBlast() {
+            console.log("Paper blast animation started!"); 
+            // Implement paper blast animation here
+            const blastContainer = document.getElementById("paper-blast");
+
+            for (let i = 0; i < 100; i++) { // Number of paper pieces
+            let paper = document.createElement("div");
+            paper.classList.add("paper-piece");
+
+            // Random positions
+            let x = Math.random() * window.innerWidth;
+            let y = Math.random() * window.innerHeight;
+        
+        // Random rotation
+        let rotate = Math.random() * 360;
+
+        // Random delay for staggered effect
+        let delay = Math.random() * 0.5;
+
+        // Random color
+        let colors = ["#ff69b4", "#ff1493", "#ff4500", "#ffcc00", "#32cd32", "#1e90ff"];
+        let color = colors[Math.floor(Math.random() * colors.length)];
+        paper.style.backgroundColor = color;
+
+        paper.style.left = `${x}px`;
+        paper.style.top = `${y}px`;
+        paper.style.transform = `rotate(${rotate}deg)`;
+        paper.style.animation = `popPaper 1.5s ease-out ${delay}s forwards`;
+
+        blastContainer.appendChild(paper);
+    }
+
+    // Remove papers after animation
+    setTimeout(() => {
+        blastContainer.innerHTML = "";
+    }, 10000);
+        }
+   //popup
+   const images = [
+   { src: "img8.jpg", name: "Gift1.jpg" },
+   { src: "img2.jpg", name: "Gift2.jpg" },
+   { src: "img3.jpg", name: "Gift3.jpg" }
+];
+
+function openPopup() {
+   const randomIndex = Math.floor(Math.random() * images.length);
+   const selectedImage = images[randomIndex];
+
+   const popupImage = document.getElementById("popup-image");
+   const downloadBtn = document.getElementById("download-btn");
+
+   popupImage.src = selectedImage.src;
+   downloadBtn.href = selectedImage.src;
+   downloadBtn.download = selectedImage.name;
+
+   document.getElementById("popup").style.display = "flex";
+}
+
+function closePopup() {
+   document.getElementById("popup").style.display = "none";
+}
+
+    </script>
+</body>
+</html>
